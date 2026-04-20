@@ -8,6 +8,22 @@ pipeline {
             }
         }
 
+        stage('Code Quality - SonarQube') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                        docker run --rm \
+                        -e SONAR_HOST_URL=http://192.168.11.106:9000 \
+                        -e SONAR_TOKEN=$SONAR_TOKEN \
+                        -v $(pwd):/usr/src \
+                        sonarsource/sonar-scanner-cli \
+                        -Dsonar.projectKey=todo-app \
+                        -Dsonar.sources=.
+                    '''
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t todo-app .'
