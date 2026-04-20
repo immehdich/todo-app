@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS'
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
@@ -12,13 +16,10 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
-                        docker run --rm \
-                        -e SONAR_HOST_URL=http://192.168.11.106:9000 \
-                        -e SONAR_TOKEN=$SONAR_TOKEN \
-                        -v $(pwd):/usr/src \
-                        sonarsource/sonar-scanner-cli \
+                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=todo-app \
-                        -Dsonar.sources=.
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://192.168.11.106:9000
                     '''
                 }
             }
