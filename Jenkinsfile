@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-
     stages {
         stage('Clone Repository') {
             steps {
@@ -13,10 +12,11 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
-                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=todo-app \
+                        /home/devops/.jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner \
+                        -Dsonar.projectKey=immehdich_todo-app \
+                        -Dsonar.organization=immehdich \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://192.168.11.106:9000
+                        -Dsonar.host.url=https://sonarcloud.io
                     '''
                 }
             }
