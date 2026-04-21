@@ -15,12 +15,8 @@
     </style>
 </head>
 <body>
-    <h1>📝 Todo App</h1>
-    <input type="text" id="todoInput" placeholder="Add a new todo..." />
-    <button onclick="addTodo()">Add</button>
-    <ul id="todoList"></ul>
-    <script>
-        async function loadTodos() {
+    <h1>📝 Todo App Demo Devops </h1> <input type="text" id="todoInput" placeholder="Add a new todo..." /> <button onclick="addTodo()">Add</button> <ul id="todoList"></ul> <script> async 
+        function loadTodos() {
             const res = await fetch('/todos');
             const todos = await res.json();
             const list = document.getElementById('todoList');
